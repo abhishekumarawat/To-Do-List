@@ -18,15 +18,15 @@ const itemSchema = {
 const Item = mongoose.model("Item", itemSchema);
 
 const item1 = new Item({
-    name: "first"
+    name: "Welcome to your To-Do-List"
 })
 
 const item2 = new Item({
-    name: "Second"
+    name: "Hit the + button to add a new Todo"
 })
 
 const item3 = new Item({
-    name: "Third"
+    name: "<-- Hit this checkbox to delete"
 })
 
 var defaultItems = [item1, item2, item3];
@@ -65,11 +65,26 @@ app.get("/", (req,res) => {
 app.post("/", (req,res) => {
 
     item = req.body.item;
-    items.push(item);
+    
+    const oneItem = new Item({
+        name: item
+    })
+
+    oneItem.save();
     res.redirect("/");
 
 })
 
+app.post("/delete", (req,res) => {
+    checkItemId = req.body.checkbox;
+    
+    Item.findByIdAndRemove(checkItemId, (err) => {
+        if(!err){
+            console.log("Successfully Deleated!");
+        }
+    })
+    res.redirect("/");
+})
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log("Server started on port "+ PORT);
