@@ -88,7 +88,13 @@ app.post("/delete", (req,res) => {
 })
 
 
-const PORT = 3000 || process.env.PORT;
-app.listen(PORT, () => {
+let port = process.env.PORT;
+
+if(port == null || port == ""){
+    port = 3000;
+}
+
+
+app.listen(port, () => {
     console.log("Server started on port "+ PORT);
 });
