@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.set('view engine', 'ejs');
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser:true});
+mongoose.connect("mongodb+srv://admin-abhishek:admin123@cluster0.judvc.mongodb.net/todolistDB", {useNewUrlParser:true});
 
 const itemSchema = {
     name: String
@@ -86,7 +86,9 @@ app.post("/delete", (req,res) => {
     })
     res.redirect("/");
 })
-const PORT = 3000;
+
+
+const PORT = 3000 || process.env.PORT;
 app.listen(PORT, () => {
     console.log("Server started on port "+ PORT);
 });
